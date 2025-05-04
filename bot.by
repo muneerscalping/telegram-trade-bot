@@ -1,0 +1,34 @@
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+
+TOKEN = "8108406151:AAHHNEm0ppv_0RRbGqpJiK21wwYp3nEjXWg"
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "أهلاً بك في Scalpingtrade_bot!\n"
+        "أرسل /signal للحصول على توصية اليوم.\n"
+        "أرسل /gold للحصول على توصية ذهب.\n"
+        "أرسل /dow للحصول على توصية داو.\n"
+        "أرسل /nasdaq للحصول على توصية نازداك.\n"
+        "أرسل /help لعرض المساعدة."
+    )
+
+async def signal(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("شراء الذهب @ 2345\nTP1: 2350\nTP2: 2360\nTP3: 2370\nSL: 2335")
+
+async def gold(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("توصية الذهب: شراء @ 2345\nTP: 2355, 2365, 2375\nSL: 2330")
+
+async def dow(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("توصية الداوجونز: بيع @ 39000\nTP: 38850, 38700, 38500\nSL: 39200")
+
+async def nasdaq(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("توصية ناسداك: شراء @ 18000\nTP: 18100, 18200, 18300\nSL: 17850")
+
+app = ApplicationBuilder().token(TOKEN).build()
+app.add_handler(CommandHandler("start", start))
+app.add_handler(CommandHandler("signal", signal))
+app.add_handler(CommandHandler("gold", gold))
+app.add_handler(CommandHandler("dow", dow))
+app.add_handler(CommandHandler("nasdaq", nasdaq))
+app.run_polling()
